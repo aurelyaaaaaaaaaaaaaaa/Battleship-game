@@ -2,25 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Firing : MonoBehaviour
+public class Board : MonoBehaviour
 {
     public Camera mainCam;
     public GameObject tile;
-    private List<GameObject> board;
     Tile tileScript;
+    public int size;
+    public Transform thf;
+    public List<List<GameObject>> board;
     void Start()
     {
-        for (int i = 0; i < 3; i++)
+        CreateBoard(size);
+    }
+
+    void CreateBoard(int size)
+    {
+        for (int y = 0; y < size; y++)
         {
-            for (int x = 0; x < 3; x++)
+            List<GameObject> newList = new List<GameObject>();
+            board.Add(newList);
+            for (int x = 0; x < size; x++)
             {
-                Instantiate(tile, new Vector3((2*(x-1)), 2, 2*(-i+1)), Quaternion.identity);
+                GameObject tilee = Instantiate(tile, new Vector3(2*x-(size-1), 2, 2*y-(size-1)), Quaternion.identity, thf);
+                newList.Add(tilee);
+                tilee.GetComponent<Tile>().x = x; tilee.GetComponent<Tile>().y = y;
             }
         }
     }
-
-    // Update is called once per frame
     void Update()
+    {
+       FireProjectile();
+    }
+    void FireProjectile()
     {
         if (Input.GetMouseButtonDown(0))
         {
@@ -39,10 +52,5 @@ public class Firing : MonoBehaviour
                 }
             }
         }
-    }
-
-    void FireProjectile()
-    {
-
     }
 }

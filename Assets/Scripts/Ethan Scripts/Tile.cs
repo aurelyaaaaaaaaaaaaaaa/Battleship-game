@@ -7,7 +7,8 @@ public class Tile : MonoBehaviour
     private MeshRenderer render;
     private bool occupied = false;
     private bool shot = false;
-
+    public int x;
+    public int y;
     void Start()
     {
         render = GetComponent<MeshRenderer>();
