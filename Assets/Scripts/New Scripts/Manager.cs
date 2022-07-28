@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class Manager : MonoBehaviour
 {
     public GameObject board;
-    private List<board> boards;
+    private List<GameObject> boards;
 
     void InstantiateBoards()
     {
