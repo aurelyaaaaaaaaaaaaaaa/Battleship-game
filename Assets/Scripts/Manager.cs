@@ -5,7 +5,7 @@ using UnityEngine;
 public class Manager : MonoBehaviour
 {
     public GameObject board;
-    private List<GameObject> boards;
+    private List<GameObject> boards = new List<GameObject>();
     bool p1Turn = true;
 
     //Everything goes through the manager first for all player input.
@@ -70,6 +70,6 @@ public class Manager : MonoBehaviour
 
     void SwitchTurn() //Switches current player to invisible. 3 second pause. Switch other player to visible.
     {
-        
+
     }
 }

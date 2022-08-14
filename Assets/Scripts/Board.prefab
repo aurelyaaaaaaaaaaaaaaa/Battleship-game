@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCam: {fileID: 1604017895276157099, guid: 1c8f8b81a3e539144a9227a8ceca4917, type: 3}
-  tile: {fileID: 2767826296566071329, guid: 2ed34417f81bf7e49b0a71c1db5106f1, type: 3}
+  tile: {fileID: 4890416156220534685, guid: 1c1a7a023c3232649ba0b1d41e768155, type: 3}
+  hidden: 1
+  b: {fileID: 1164321025292746757}
   size: 10
-  thf: {fileID: 7179763286850088059, guid: cba8579ed9b967d4fb8024fac5d8de22, type: 3}

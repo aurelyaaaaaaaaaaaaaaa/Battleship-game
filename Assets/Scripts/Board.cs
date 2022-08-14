@@ -7,9 +7,9 @@ public class Board : MonoBehaviour
     public Camera mainCam;
     public GameObject tile;
     Tile tileScript;
-    public Transform thf;
-    public List<List<GameObject>> board;
+    public List<List<GameObject>> BoardArray = new List<List<GameObject>>();
     public bool hidden = true;
+    public Transform b;
     public int size;
     void Start()
     {
@@ -24,16 +24,13 @@ public class Board : MonoBehaviour
     {
         for (int x = 1; x <= size; x++)
         {
-            List<GameObject> column = new List<GameObject>();
-            board.Add(column);
+            BoardArray.Add(new List<GameObject>());
             for (int y = 1; y <= size; y++)
             {
-                // need to make this vector
-                Vector3 v = new Vector3();
-                GameObject i = GameObject.Instantiate(tile,v,Quaternion.identity);
+                GameObject i = GameObject.Instantiate(tile,new Vector3((-15 + x * 1.5f), 0, (-15 + y * 1.5f)),Quaternion.identity,b);
                 i.GetComponent<Tile>().y = y;
                 i.GetComponent<Tile>().x = x;
-                column.Add(i);
+                BoardArray[x-1].Add(i);
             }
         }
     }
