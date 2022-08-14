@@ -3,9 +3,7 @@
 # Game Cycle
 
 ## Setup
--Choose size board (5x5, 10x10, 15x15).  
-
--Two boards of tiles (board has 2D list of tiles).  
+-Two boards of tiles (board has 2D array of tiles).  
 
 -Tiles are instantiated with an (x,y) denoting position in the board, so that when they are clicked they can return position and that can be used when accessing the board class.  
 

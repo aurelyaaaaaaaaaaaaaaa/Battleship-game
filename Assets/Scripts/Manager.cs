@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Manager : MonoBehaviour
 {
     public GameObject board;
     private List<GameObject> boards = new List<GameObject>();
     bool p1Turn = true;
+    public GameObject ScreenHider;
+    public Animator animator;
 
     //Everything goes through the manager first for all player input.
     //The board objects don't need to know if the game is in setup or firing mode.
@@ -70,6 +73,7 @@ public class Manager : MonoBehaviour
 
     void SwitchTurn() //Switches current player to invisible. 3 second pause. Switch other player to visible.
     {
-
+        animator.SetTrigger("fade");
+        SwitchState();
     }
 }
