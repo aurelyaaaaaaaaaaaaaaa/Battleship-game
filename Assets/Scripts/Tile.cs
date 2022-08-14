@@ -7,7 +7,7 @@ public class Tile : MonoBehaviour
     private MeshRenderer render;
     private bool occupied = false;
     private bool shot = false;
-    private bool invis = false;
+    private bool friendly = false;
     public int x;
     public int y;
     void Start()
@@ -20,57 +20,9 @@ public class Tile : MonoBehaviour
         
     }
 
-    private void OnMouseEnter()
-    {
-        if (!shot)
-        {
-            render.material.color = Color.red;
-        }
-    }
+    public bool Friendly() { return friendly; }
 
-    private void OnMouseExit()
-    {
-        if (!shot)
-        {
-            render.material.color = Color.white;
-        }
-    }
+    public bool Shot() { return shot; }
 
-    public bool hit()
-    {
-        shot = true;
-        if (occupied)
-        {
-            render.material.color = Color.magenta;
-            return true;
-        }
-        else
-        {
-            render.material.color = Color.black;
-            return false;
-        }
-    }
-
-    public void invisSwitch()
-    {
-        if (invis)
-        {
-            render.material.color = Color.white;
-        }
-    }
-
-    public bool returnShot()
-    {
-        return shot;
-    }
-
-    public bool returnFull()
-    {
-        return occupied;
-    }
-
-    (int , int) BoardPosition()
-    {
-        return (x, y);
-    }
+    public bool Occupied() { return occupied; }
 }

@@ -43,12 +43,12 @@ public class Manager : MonoBehaviour
         }
     }
 
-    void CheckHighlight() //Checks if ship is held. Highlights green for valid placement, red for invalid.
+    void CheckSpace(int x, int y, int size, bool horizontal) //Checks if ship can be placed at position.
     {
 
     }
 
-    void HighlightAtPosition(int x, int y) //Calls board to highlight tiles at coordinates. Highlight multiple squares when holding a ship to place.
+    public void HighlightAtPosition(int x, int y, Color color) //Calls board to highlight tiles at coordinates. Highlight multiple squares when holding a ship to place.
     {
 
     }

@@ -15,6 +15,10 @@ public class Board : MonoBehaviour
     {
         CreateBoard();
     }
+    void Update()
+    {
+
+    }
 
     void CreateBoard()
     {
@@ -26,16 +30,22 @@ public class Board : MonoBehaviour
 
     }
 
-    void Update()
-    {
-
-    }
     void FireProjectile()
     {
 
     }
 
     public void Switch()
+    {
+
+    }
+
+    void ResetSquares()
+    {
+
+    }
+
+    void PlaceShip()
     {
 
     }
