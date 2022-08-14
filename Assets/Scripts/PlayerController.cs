@@ -24,6 +24,11 @@ public class PlayerController : MonoBehaviour
                 int y = hitInfo.collider.gameObject.GetComponent<Tile>().y;
 
                 HoverTile(x, y, hitInfo.collider.gameObject);
+
+                if (Input.GetMouseButtonDown(0))
+                {
+                    ClickOptions(x, y, hitInfo.collider.gameObject);
+                }
             }
 
             if (hitInfo.collider.gameObject.GetComponent<Ship>() != null && Input.GetMouseButtonDown(0)) //Checks if clicking ship
@@ -84,6 +89,10 @@ public class PlayerController : MonoBehaviour
     {
         if (!ship.GetComponent<Ship>().placed && !shipSelected)
         {
+            if (currentHeldShip != null)
+            {
+                currentHeldShip.GetComponent<Ship>().Highlight();
+            }
             currentHeldShip = ship;
             shipSize = ship.GetComponent<Ship>().size;
         }
