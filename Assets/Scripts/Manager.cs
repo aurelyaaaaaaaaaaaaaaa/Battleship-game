@@ -61,7 +61,7 @@ public class Manager : MonoBehaviour
 
     }
 
-    void PlaceShip(int x, int y, int size, bool horizontal) //Calls board to place ship at coordinates.
+    public void PlaceShip(int x, int y, int size, bool horizontal) //Calls board to place ship at coordinates.
     {
 
     }

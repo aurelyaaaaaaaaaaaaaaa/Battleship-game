@@ -575,3 +575,33 @@ Received Import Request.
   path: Assets/Scripts/PlayerController.cs
   artifactKey: Guid(09d29255eeac4b842860e1a413fa17e3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
 Start importing Assets/Scripts/PlayerController.cs using Guid(09d29255eeac4b842860e1a413fa17e3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '26151e3bac49712733c51de9b820ad50') in 0.002225 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 6468.178056 seconds.
+  path: Assets/Scenes
+  artifactKey: Guid(a3d8f6a66455987429aa07f55bf39f4e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes using Guid(a3d8f6a66455987429aa07f55bf39f4e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4d7622058919847be8661bc10cdba3b8') in 0.012262 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 1.044362 seconds.
+  path: Assets/Scenes/Main Menu.unity
+  artifactKey: Guid(981c8727820d1e44c910db3b87b8ebda) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Main Menu.unity using Guid(981c8727820d1e44c910db3b87b8ebda) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9b3926cdf29e91e9f4fa27f8ae8ff326') in 0.006579 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 1.213699 seconds.
+  path: Assets/Scenes/SampleScene.unity
+  artifactKey: Guid(d1c3109bdb54ad54c8a2b2838528e640) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/SampleScene.unity using Guid(d1c3109bdb54ad54c8a2b2838528e640) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '57acdced269887b46947fd823f23e198') in 0.006547 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 2.187445 seconds.
+  path: Assets/Scenes/ShootScene.unity
+  artifactKey: Guid(01007509c2259cd4a8f76cbf677a4920) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/ShootScene.unity using Guid(01007509c2259cd4a8f76cbf677a4920) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1066384287191ee2df02b8a6fc587eed') in 0.006244 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.505203 seconds.
+  path: Assets/Scenes/Test.unity
+  artifactKey: Guid(e420489baba79cb46a67f5fb5929bc8b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Test.unity using Guid(e420489baba79cb46a67f5fb5929bc8b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bf2b001d5687533efa423ba4ac0afe85') in 0.006240 seconds 
