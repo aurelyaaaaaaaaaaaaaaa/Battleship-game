@@ -56,12 +56,17 @@ public class Manager : MonoBehaviour
 
     }
 
+    public void DeHighlight()
+    {
+
+    }
+
     void PlaceShip(int x, int y, int size, bool horizontal) //Calls board to place ship at coordinates.
     {
 
     }
 
-    void Shoot(int x, int y) //Fire at board position. Check is done in Player class so no need to do it here.
+    public void Shoot(int x, int y) //Fire at board position. Check is done in Player class so no need to do it here.
     {
 
     }
