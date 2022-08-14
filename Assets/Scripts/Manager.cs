@@ -70,6 +70,6 @@ public class Manager : MonoBehaviour
 
     void SwitchTurn() //Switches current player to invisible. 3 second pause. Switch other player to visible.
     {
-
+        
     }
 }
