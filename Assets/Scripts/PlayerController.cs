@@ -30,15 +30,15 @@ public class PlayerController : MonoBehaviour
                     ClickOptions(x, y, hitInfo.collider.gameObject);
                 }
             }
+            else
+            {
+                manager.GetComponent<Manager>().DeHighlight();
+            }
 
             if (hitInfo.collider.gameObject.GetComponent<Ship>() != null && Input.GetMouseButtonDown(0)) //Checks if clicking ship
             {
                 PickShip(hitInfo.collider.gameObject);
             }
-        }
-        else
-        {
-            manager.GetComponent<Manager>().DeHighlight();
         }
     }
 

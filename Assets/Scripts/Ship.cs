@@ -11,6 +11,7 @@ public class Ship : MonoBehaviour
     private void Start()
     {
         render = GetComponent<MeshRenderer>();
+        transform.localScale = new Vector3((size + (size-1)*0.5f), 1, 1);
     }
 
     public int returnSize()

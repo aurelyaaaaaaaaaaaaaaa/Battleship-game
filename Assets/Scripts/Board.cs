@@ -15,11 +15,6 @@ public class Board : MonoBehaviour
     {
         CreateBoard();
     }
-    void Update()
-    {
-
-    }
-
     void CreateBoard()
     {
         for (int x = 1; x <= size; x++)
@@ -27,7 +22,7 @@ public class Board : MonoBehaviour
             BoardArray.Add(new List<GameObject>());
             for (int y = 1; y <= size; y++)
             {
-                GameObject i = GameObject.Instantiate(tile,new Vector3((-15 + x * 1.5f), 0, (-15 + y * 1.5f)),Quaternion.identity,b);
+                GameObject i = GameObject.Instantiate(tile,(new Vector3((-15 + x * 1.5f), 0, (-15 + y * 1.5f)) + transform.position),Quaternion.identity,b);
                 i.GetComponent<Tile>().y = y;
                 i.GetComponent<Tile>().x = x;
                 BoardArray[x-1].Add(i);
@@ -35,9 +30,9 @@ public class Board : MonoBehaviour
         }
     }
 
-    public void BeginSetup()
+    public void SpawnShips()
     {
-
+        
     }
 
     void FireProjectile()
@@ -58,5 +53,24 @@ public class Board : MonoBehaviour
     void PlaceShip()
     {
 
+    }
+
+    public void HighlightSquare(int x, int y, Color colour)
+    {
+        BoardArray[x-1][y-1].GetComponent<Tile>().Hightlit(colour);
+    }
+
+    public void DeHighlightAll()
+    {
+        foreach(List<GameObject> x in BoardArray)
+        {
+            foreach(GameObject y in x)
+            {
+                if(!y.GetComponent<Tile>().Occupied() && !y.GetComponent<Tile>().Shot())
+                {
+                    y.GetComponent<Tile>().Hightlit(Color.white);
+                }
+            }
+        }
     }
 }

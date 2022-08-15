@@ -5,6 +5,7 @@ using UnityEngine;
 public class Tile : MonoBehaviour
 {
     private MeshRenderer render;
+    Color tempcolour;
     private bool occupied = false;
     private bool shot = false;
     private bool friendly = false;
@@ -25,4 +26,9 @@ public class Tile : MonoBehaviour
     public bool Shot() { return shot; }
 
     public bool Occupied() { return occupied; }
+
+    public void Hightlit(Color colour)
+    {
+        render.material.color = colour;
+    }
 }

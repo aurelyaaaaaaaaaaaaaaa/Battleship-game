@@ -7,7 +7,7 @@ public class Manager : MonoBehaviour
 {
     public GameObject board;
     private List<GameObject> boards = new List<GameObject>();
-    bool p1Turn = true;
+    public bool p1Turn = true;
     public GameObject ScreenHider;
     public Animator animator;
 
@@ -25,17 +25,17 @@ public class Manager : MonoBehaviour
 
     void InstantiateBoards() //Instantiate 2 boards side by side.
     {
-        GameObject board1 = Instantiate(board, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+        GameObject board1 = Instantiate(board, new Vector3(7, 0, 7), Quaternion.identity) as GameObject;
         boards.Add(board1);
         board1.GetComponent<Board>().hidden = false;
 
-        GameObject board2 = Instantiate(board, new Vector3(0, 0, 50), Quaternion.identity) as GameObject;
+        GameObject board2 = Instantiate(board, new Vector3(7, 0, 7), Quaternion.identity) as GameObject;
         boards.Add(board2);
     }
 
     void SetUpShips(int p) //Spawn ships for set up on board.
     {
-        boards[p].GetComponent<Board>().BeginSetup();
+        boards[p].GetComponent<Board>().SpawnShips();
     }
 
     void SwitchState() //Switches boards from visible to none visible depending on who's turn it is.
@@ -51,14 +51,21 @@ public class Manager : MonoBehaviour
 
     }
 
-    public void HighlightAtPosition(int x, int y, Color color) //Calls board to highlight tiles at coordinates. Highlight multiple squares when holding a ship to place.
+    public void HighlightAtPosition(int x, int y, Color colour) //Calls board to highlight tiles at coordinates. Highlight multiple squares when holding a ship to place.
     {
-
+        if (p1Turn)
+        {
+            boards[0].GetComponent<Board>().HighlightSquare(x,y,colour);
+        }
+        else
+        {
+            boards[1].GetComponent<Board>().HighlightSquare(x,y,colour);
+        }
     }
 
     public void DeHighlight()
     {
-
+        boards[0].GetComponent<Board>().DeHighlightAll();
     }
 
     public void PlaceShip(int x, int y, int size, bool horizontal) //Calls board to place ship at coordinates.
