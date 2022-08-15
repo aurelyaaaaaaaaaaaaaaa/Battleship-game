@@ -32,8 +32,6 @@ public class Manager : MonoBehaviour
 
         GameObject board2 = Instantiate(board, new Vector3(17, 0, 7), Quaternion.identity) as GameObject;
         boards.Add(board2);
-
-        boards[0].GetComponent<Board>().Switch();
     }
 
     void SetUpShips(int p) //Spawn ships for set up on board.
@@ -69,11 +67,13 @@ public class Manager : MonoBehaviour
     public void DeHighlight()
     {
         boards[0].GetComponent<Board>().DeHighlightAll();
+        boards[1].GetComponent<Board>().DeHighlightAll();
     }
 
     public void PlaceShip(int x, int y, int size, bool horizontal) //Calls board to place ship at coordinates.
     {
-
+        if (p1Turn) {boards[0].GetComponent<Board>().PlaceShip(x,y,size,horizontal);}
+        else {boards[1].GetComponent<Board>().PlaceShip(x,y,size,horizontal);}
     }
 
     public void Shoot(int x, int y) //Fire at board position. Check is done in Player class so no need to do it here.
@@ -94,7 +94,6 @@ public class Manager : MonoBehaviour
 
     public IEnumerator MoveCam(Vector3 destination) // Moves camera
     {
-        Debug.Log("yyyyy");
         while (mainCam.transform.position != destination)
         {
             mainCam.transform.position = Vector3.MoveTowards(mainCam.transform.position, destination, (float) 0.2);

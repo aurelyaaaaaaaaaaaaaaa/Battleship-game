@@ -406,6 +406,7 @@ MonoBehaviour:
   p1Turn: 1
   ScreenHider: {fileID: 997179770}
   animator: {fileID: 64326133}
+  mainCam: {fileID: 1698044090}
 --- !u!1 &634207596
 GameObject:
   m_ObjectHideFlags: 0
@@ -718,7 +719,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCam: {fileID: 1698044090}
-  setup: 0
+  setup: 1
   manager: {fileID: 599612770}
 --- !u!1 &1818334377
 GameObject:

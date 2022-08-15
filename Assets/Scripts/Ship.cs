@@ -7,6 +7,7 @@ public class Ship : MonoBehaviour
     public int size;
     public bool placed = false;
     MeshRenderer render;
+    Color tempcolour;
 
     private void Start()
     {
@@ -24,8 +25,8 @@ public class Ship : MonoBehaviour
         placed = !placed;
     }
 
-    public void Highlight()
+    public void Highlight(Color colour)
     {
-
+        render.material.color = colour;
     }
 }

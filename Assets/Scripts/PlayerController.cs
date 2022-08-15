@@ -30,15 +30,14 @@ public class PlayerController : MonoBehaviour
                     ClickOptions(x, y, hitInfo.collider.gameObject);
                 }
             }
-            else
-            {
-                manager.GetComponent<Manager>().DeHighlight();
-            }
-
-            if (hitInfo.collider.gameObject.GetComponent<Ship>() != null && Input.GetMouseButtonDown(0)) //Checks if clicking ship
+            else if (hitInfo.collider.gameObject.GetComponent<Ship>() != null && Input.GetMouseButtonDown(0)) //Checks if clicking ship
             {
                 PickShip(hitInfo.collider.gameObject);
             }
+            else //Unhilights all tiles
+            {
+                manager.GetComponent<Manager>().DeHighlight();
+            }            
         }
 
         if (Input.GetButtonDown("Jump"))
@@ -114,11 +113,12 @@ public class PlayerController : MonoBehaviour
         {
             if (currentHeldShip != null) //Unhighlight current ship if a new one is selected.
             {
-                currentHeldShip.GetComponent<Ship>().Highlight();
+                currentHeldShip.GetComponent<Ship>().Highlight(Color.gray);
             }
             currentHeldShip = ship;
             shipSize = ship.GetComponent<Ship>().size;
-            currentHeldShip.GetComponent<Ship>().Highlight();
+            currentHeldShip.GetComponent<Ship>().Highlight(Color.green);
+            shipSelected = true;
         }
     }
 
@@ -128,12 +128,13 @@ public class PlayerController : MonoBehaviour
         {
             manager.GetComponent<Manager>().Shoot(x, y);
         }
-
+        Debug.Log(tile.GetComponent<Tile>().Friendly());
         if (tile.GetComponent<Tile>().Friendly() && setup && shipSelected)
         {
             if (CanPlace(x, y))
             {
                 manager.GetComponent<Manager>().PlaceShip(x, y, shipSize, horizontal);
+                currentHeldShip.GetComponent<Ship>().placed = true;
             }
         }
     }

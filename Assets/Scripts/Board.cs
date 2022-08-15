@@ -42,7 +42,15 @@ public class Board : MonoBehaviour
 
     public void Switch()
     {
-
+        //idk how fix, this executes before the board is generated leading to an error.
+        Debug.Log("switch");
+        foreach (List<GameObject> x in BoardArray)
+        {
+            foreach (GameObject y in x)
+            {
+                y.GetComponent<Tile>().Switch();
+            }
+        }
     }
 
     void ResetSquares()
@@ -50,9 +58,20 @@ public class Board : MonoBehaviour
 
     }
 
-    void PlaceShip()
+    public void PlaceShip(int x, int y, int size, bool horizontal)
     {
-
+        Debug.Log(x + " " + y);
+        for(int i = 0; i<size; i++)
+        {
+            if(horizontal)
+            {
+                BoardArray[x-1+i][y-1].GetComponent<Tile>().Place();
+            }
+            else
+            {
+                BoardArray[x-1][y-1+i].GetComponent<Tile>().Place();
+            }
+        }
     }
 
     public void HighlightSquare(int x, int y, Color colour)
