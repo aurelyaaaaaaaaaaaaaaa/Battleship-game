@@ -40,6 +40,11 @@ public class PlayerController : MonoBehaviour
                 PickShip(hitInfo.collider.gameObject);
             }
         }
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            StartCoroutine(manager.GetComponent<Manager>().MoveCam(new Vector3((float)18.2, 17, 0)));
+        }
     }
 
     void HoverTile(int x, int y, GameObject tile) //Checks what tiles to highlight and color

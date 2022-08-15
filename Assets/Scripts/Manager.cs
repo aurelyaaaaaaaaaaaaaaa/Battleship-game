@@ -10,6 +10,8 @@ public class Manager : MonoBehaviour
     public bool p1Turn = true;
     public GameObject ScreenHider;
     public Animator animator;
+    public Camera mainCam;
+    Vector3 finalCamPos = new Vector3((float)1.75, 17, 0);
 
     //Everything goes through the manager first for all player input.
     //The board objects don't need to know if the game is in setup or firing mode.
@@ -25,12 +27,13 @@ public class Manager : MonoBehaviour
 
     void InstantiateBoards() //Instantiate 2 boards side by side.
     {
-        GameObject board1 = Instantiate(board, new Vector3(7, 0, 7), Quaternion.identity) as GameObject;
+        GameObject board1 = Instantiate(board, new Vector3(0, 0, 7), Quaternion.identity) as GameObject;
         boards.Add(board1);
-        board1.GetComponent<Board>().hidden = false;
 
-        GameObject board2 = Instantiate(board, new Vector3(7, 0, 7), Quaternion.identity) as GameObject;
+        GameObject board2 = Instantiate(board, new Vector3(17, 0, 7), Quaternion.identity) as GameObject;
         boards.Add(board2);
+
+        boards[0].GetComponent<Board>().Switch();
     }
 
     void SetUpShips(int p) //Spawn ships for set up on board.
@@ -87,5 +90,15 @@ public class Manager : MonoBehaviour
     {
         animator.SetTrigger("fade");
         SwitchState();
+    }
+
+    public IEnumerator MoveCam(Vector3 destination) // Moves camera
+    {
+        Debug.Log("yyyyy");
+        while (mainCam.transform.position != destination)
+        {
+            mainCam.transform.position = Vector3.MoveTowards(mainCam.transform.position, destination, (float) 0.2);
+            yield return new WaitForEndOfFrame();
+        }
     }
 }

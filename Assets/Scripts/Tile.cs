@@ -27,7 +27,7 @@ public class Tile : MonoBehaviour
 
     public bool Occupied() { return occupied; }
 
-    public void Hightlit(Color colour)
+    public void Hightlight(Color colour)
     {
         render.material.color = colour;
     }

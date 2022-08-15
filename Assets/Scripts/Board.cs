@@ -57,7 +57,7 @@ public class Board : MonoBehaviour
 
     public void HighlightSquare(int x, int y, Color colour)
     {
-        BoardArray[x-1][y-1].GetComponent<Tile>().Hightlit(colour);
+        BoardArray[x-1][y-1].GetComponent<Tile>().Hightlight(colour);
     }
 
     public void DeHighlightAll()
@@ -68,7 +68,7 @@ public class Board : MonoBehaviour
             {
                 if(!y.GetComponent<Tile>().Occupied() && !y.GetComponent<Tile>().Shot())
                 {
-                    y.GetComponent<Tile>().Hightlit(Color.white);
+                    y.GetComponent<Tile>().Hightlight(Color.white);
                 }
             }
         }
