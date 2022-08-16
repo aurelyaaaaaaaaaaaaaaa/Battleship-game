@@ -149,6 +149,43 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
+                for (int i = 1; i<shipSize; i++)
+                {
+                    if (horizontal)
+                    {
+                        if (manager.p1Turn)
+                        {
+                            if(manager.boards[0].GetComponent<Board>().BoardArray[x+i-1][y-1].GetComponent<Tile>().Occupied())
+                            {
+                                return false;
+                            } 
+                        }
+                        else
+                        {
+                            if(manager.boards[1].GetComponent<Board>().BoardArray[x+i-1][y-1].GetComponent<Tile>().Occupied())
+                            {
+                                return false;
+                            } 
+                        }
+                    }
+                    else
+                    {
+                        if (manager.p1Turn)
+                        {
+                            if(manager.boards[0].GetComponent<Board>().BoardArray[x-1][y+i-1].GetComponent<Tile>().Occupied())
+                            {
+                                return false;
+                            } 
+                        }
+                        else
+                        {
+                            if(manager.boards[1].GetComponent<Board>().BoardArray[x-1][y+i-1].GetComponent<Tile>().Occupied())
+                            {
+                                return false;
+                            } 
+                        }
+                    }
+                }
                 return true;
             }
         }

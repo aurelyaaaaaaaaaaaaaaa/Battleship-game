@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Manager : MonoBehaviour
 {
     public GameObject board;
-    private List<Board> boards = new List<Board>();
+    public List<Board> boards = new List<Board>();
     public bool p1Turn = true;
     public GameObject ScreenHider;
     public Animator animator;
@@ -47,6 +47,7 @@ public class Manager : MonoBehaviour
     public void SetUpShips(int p) //Spawn ships for set up on board.
     {
         boards[p].SpawnShips();
+        shipsPlaced=0;
     }
 
     public void SwitchState() //Switches boards from visible to none visible depending on who's turn it is.
@@ -88,12 +89,12 @@ public class Manager : MonoBehaviour
             if(horizontal)
             {
                 ship.transform.rotation = Quaternion.Euler(0,0,0);
-                ship.transform.position = boards[0].BoardArray[x-1][y-1].transform.position + new Vector3((size + (size-2)*0.5f)/2,0.5f,0);
+                ship.transform.position = boards[0].BoardArray[x-1][y-1].transform.position + new Vector3((size + (size-3)*0.5f)/2,0.5f,0);
             }
             else
             {
                 ship.transform.rotation = Quaternion.Euler(0,90,0);
-                ship.transform.position = boards[0].BoardArray[x-1][y-1].transform.position + new Vector3(0,0.5f,(size + (size-2)*0.5f)/2);
+                ship.transform.position = boards[0].BoardArray[x-1][y-1].transform.position + new Vector3(0,0.5f,(size + (size-3)*0.5f)/2);
             }
         }
         else 
@@ -102,12 +103,12 @@ public class Manager : MonoBehaviour
             if(horizontal)
             {
                 ship.transform.rotation = Quaternion.Euler(0,0,0);
-                ship.transform.position = boards[1].BoardArray[x-1][y-1].transform.position + new Vector3((size + (size-2)*0.5f)/2,0.5f,0);
+                ship.transform.position = boards[1].BoardArray[x-1][y-1].transform.position + new Vector3((size + (size-3)*0.5f)/2,0.5f,0);
             }
             else
             {
                 ship.transform.rotation = Quaternion.Euler(0,90,0);
-                ship.transform.position = boards[1].BoardArray[x-1][y-1].transform.position + new Vector3(0,0.5f,(size + (size-2)*0.5f)/2);
+                ship.transform.position = boards[1].BoardArray[x-1][y-1].transform.position + new Vector3(0,0.5f,(size + (size-3)*0.5f)/2);
             }
         }
         shipsPlaced += 1;
@@ -115,7 +116,7 @@ public class Manager : MonoBehaviour
 
     public void Shoot(int x, int y) //Fire at board position. Check is done in Player class so no need to do it here.
     {
-
+        CheckWin();
     }
 
     void CheckWin() //Asks the board to return the number of 'alive' tiles. If its zero then that side loses. Move to win scene.
@@ -123,18 +124,14 @@ public class Manager : MonoBehaviour
 
     }
 
-    void SwitchTurn() //Switches current player to invisible. 3 second pause. Switch other player to visible.
-    {
-        animator.SetTrigger("fade");
-        SwitchState();
-    }
-
     public IEnumerator MoveCam(Vector3 destination) // Moves camera
     {
+        animator.SetTrigger("fade");
         while (mainCam.transform.position != destination)
         {
             mainCam.transform.position = Vector3.MoveTowards(mainCam.transform.position, destination, (float) 0.2);
             yield return new WaitForEndOfFrame();
         }
+        animator.SetTrigger("fader");
     }
 }

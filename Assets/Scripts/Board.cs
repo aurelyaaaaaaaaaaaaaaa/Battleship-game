@@ -10,7 +10,7 @@ public class Board : MonoBehaviour
     public bool hidden = true;
     public Transform b;
     public List<GameObject> ships;
-    List<GameObject> currentShips;
+    List<GameObject> currentShips = new List<GameObject>();
     public int size;
     public bool isP1 = false;
     void Start()
@@ -52,13 +52,11 @@ public class Board : MonoBehaviour
         }
 
         DeHighlightAll();
-        Debug.Log(ships.Count);
         for (int i=0; i < ships.Count; i++)
         {
-            Debug.Log(i);
-            currentShips.Add(Instantiate(ships[i], new Vector3(-20, 0.5f, 6 - 2 * i), Quaternion.identity));
+            if (isP1)currentShips.Add(Instantiate(ships[i], new Vector3(-20, 0.5f, 6 - 2 * i), Quaternion.identity));
+            else currentShips.Add(Instantiate(ships[i], new Vector3(25, 0.5f, 6 - 2 * i), Quaternion.identity));
         }
-        Debug.Log("ok");
     }
 
     void Fire()

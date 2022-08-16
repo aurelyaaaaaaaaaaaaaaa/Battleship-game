@@ -55,3 +55,4 @@ MonoBehaviour:
   - {fileID: 3380054165420640969, guid: 101c9079ec7cf1f4aab6e35fdfa0c12d, type: 3}
   - {fileID: 3380054165420640969, guid: 87761d9e8e885cc4396bc6f185a6557a, type: 3}
   size: 10
+  isP1: 0

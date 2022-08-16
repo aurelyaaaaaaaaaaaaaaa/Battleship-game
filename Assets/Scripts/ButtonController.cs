@@ -23,8 +23,14 @@ public class ButtonController : MonoBehaviour
         {
             manager.p1Turn = false;
             manager.SwitchState();
-            StartCoroutine(manager.MoveCam(new Vector3((float)18.2, 17, 0)));
+            StartCoroutine(manager.MoveCam(new Vector3(18, 17, 0)));
             manager.SetUpShips(1);
+        }
+        else if (!P1Turn && manager.shipsPlaced == 5)
+        {
+            manager.p1Turn = true;
+            manager.SwitchState();
+            StartCoroutine(manager.MoveCam(new Vector3(-15, 17, 0)));
         }
     }
 }
