@@ -6,11 +6,11 @@ public class PlayerController : MonoBehaviour
 {
     public Camera mainCam;
     bool shipSelected;
-    bool horizontal = false;
+    bool horizontal = true;
     int shipSize;
     public bool setup;
-    public GameObject manager;
     GameObject currentHeldShip;
+    public Manager manager;
 
     void Update()
     {
@@ -36,19 +36,15 @@ public class PlayerController : MonoBehaviour
             }
             else //Unhilights all tiles
             {
-                manager.GetComponent<Manager>().DeHighlight();
+                manager.DeHighlight();
             }            
         }
         //change to button script
-        if (Input.GetButtonDown("Jump") && manager.GetComponent<Manager>().shipsPlaced == 5)
-        {
-            StartCoroutine(manager.GetComponent<Manager>().MoveCam(new Vector3((float)18.2, 17, 0)));
-        }
 
         if (Input.GetButtonDown("rotateship") && shipSelected)
         {
             horizontal = !horizontal;
-            manager.GetComponent<Manager>().DeHighlight();
+            manager.DeHighlight();
         }
     }
 
@@ -56,7 +52,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!tile.GetComponent<Tile>().Friendly() && !tile.GetComponent<Tile>().Shot() && !setup)
         {
-            manager.GetComponent<Manager>().HighlightAtPosition(x, y, Color.red);
+            manager.HighlightAtPosition(x, y, Color.red);
         }
 
         if (tile.GetComponent<Tile>().Friendly() && !tile.GetComponent<Tile>().Occupied() && setup && shipSelected)
@@ -67,21 +63,14 @@ public class PlayerController : MonoBehaviour
                 {
                     for (int i = x; i <= 10; i++)
                     {
-                        manager.GetComponent<Manager>().HighlightAtPosition(i, y, Color.red);
+                        manager.HighlightAtPosition(i, y, Color.red);
                     }
                 }
                 else
                 {
                     for (int i = x; i < x + shipSize; i++) //Highlight tiles that already have ships red, else green
                     {
-                        if (!tile.GetComponent<Tile>().Occupied())
-                        {
-                            manager.GetComponent<Manager>().HighlightAtPosition(i, y, Color.green);
-                        }
-                        else
-                        {
-                            manager.GetComponent<Manager>().HighlightAtPosition(i, y, Color.red);
-                        }
+                        manager.HighlightAtPosition(i, y, Color.green);
                     }
                 }
             }
@@ -92,7 +81,7 @@ public class PlayerController : MonoBehaviour
                 {
                     for (int i = y; i <= 10; i++)
                     {
-                        manager.GetComponent<Manager>().HighlightAtPosition(x, i, Color.red);
+                        manager.HighlightAtPosition(x, i, Color.red);
                     }
                 }
                 else
@@ -101,11 +90,11 @@ public class PlayerController : MonoBehaviour
                     {
                         if (!tile.GetComponent<Tile>().Occupied())
                         {
-                            manager.GetComponent<Manager>().HighlightAtPosition(x, i, Color.green);
+                            manager.HighlightAtPosition(x, i, Color.green);
                         }
                         else
                         {
-                            manager.GetComponent<Manager>().HighlightAtPosition(x, i, Color.red);
+                            manager.HighlightAtPosition(x, i, Color.red);
                         }
                     }
                 }
@@ -115,11 +104,11 @@ public class PlayerController : MonoBehaviour
 
     void PickShip(GameObject ship)
     {
-        if (!ship.GetComponent<Ship>().placed && !shipSelected)
+        if (!ship.GetComponent<Ship>().placed)
         {
             if (currentHeldShip != null) //Unhighlight current ship if a new one is selected.
             {
-                currentHeldShip.GetComponent<Ship>().Highlight(Color.gray);
+                currentHeldShip.GetComponent<Ship>().Highlight(Color.white);
             }
             currentHeldShip = ship;
             shipSize = ship.GetComponent<Ship>().size;
@@ -132,13 +121,13 @@ public class PlayerController : MonoBehaviour
     {
         if (!tile.GetComponent<Tile>().Friendly() && !tile.GetComponent<Tile>().Shot() && !setup)
         {
-            manager.GetComponent<Manager>().Shoot(x, y);
+            manager.Shoot(x, y);
         }
         if (tile.GetComponent<Tile>().Friendly() && setup && shipSelected)
         {
             if (CanPlace(x, y))
             {
-                manager.GetComponent<Manager>().PlaceShip(x, y, shipSize, horizontal, currentHeldShip);
+                manager.PlaceShip(x, y, shipSize, horizontal, currentHeldShip);
                 currentHeldShip.GetComponent<Ship>().placed = true;
                 shipSelected = false;
                 currentHeldShip = null;
@@ -150,15 +139,18 @@ public class PlayerController : MonoBehaviour
     {
         if (!currentHeldShip.GetComponent<Ship>().placed)
         {
-            if (horizontal && x + shipSize-2 >= 10)
+            if (horizontal && x + shipSize - 2 >= 10)
             {
                 return false;
             }
-            else if (!horizontal && y + shipSize-2 >= 10)
+            else if (!horizontal && y + shipSize - 2 >= 10)
             {
                 return false;
             }
-            else return true;
+            else
+            {
+                return true;
+            }
         }
         else return false;
     }

@@ -6,8 +6,7 @@ using UnityEngine.UI;
 public class Manager : MonoBehaviour
 {
     public GameObject board;
-    public Board test;
-    private List<GameObject> boards = new List<GameObject>();
+    private List<Board> boards = new List<Board>();
     public bool p1Turn = true;
     public GameObject ScreenHider;
     public Animator animator;
@@ -26,37 +25,39 @@ public class Manager : MonoBehaviour
     private void Start() //At scene creation the boards are set.
     {
         InstantiateBoards();
+        SetUpShips(0);
     }
 
     public void P1Go() //essential function do not delete, it is needed i dont know why
     {
         if(!gogogo)
-        {boards[0].GetComponent<Board>().Switch();gogogo=true;}      
+        {boards[0].Switch();gogogo=true;}      
     }
 
     void InstantiateBoards() //Instantiate 2 boards side by side.
     {
         GameObject board1 = Instantiate(board, new Vector3(0, 0, 7), Quaternion.identity) as GameObject;
-        boards.Add(board1);
+        boards.Add(board1.GetComponent<Board>());
+        board1.GetComponent<Board>().isP1 = true;
 
         GameObject board2 = Instantiate(board, new Vector3(17, 0, 7), Quaternion.identity) as GameObject;
-        boards.Add(board2);
+        boards.Add(board2.GetComponent<Board>());
     }
 
-    void SetUpShips(int p) //Spawn ships for set up on board.
+    public void SetUpShips(int p) //Spawn ships for set up on board.
     {
-        boards[p].GetComponent<Board>().SpawnShips();
+        boards[p].SpawnShips();
     }
 
-    void SwitchState() //Switches boards from visible to none visible depending on who's turn it is.
+    public void SwitchState() //Switches boards from visible to none visible depending on who's turn it is.
     {
-        foreach (GameObject x in boards)
+        foreach (Board x in boards)
         {
-            x.GetComponent<Board>().Switch();
+            x.Switch();
         }
     }
 
-    void CheckSpace(int x, int y, int size, bool horizontal) //Checks if ship can be placed at position.
+    public void CheckSpace(int x, int y, int size, bool horizontal) //Checks if ship can be placed at position.
     {
 
     }
@@ -65,48 +66,48 @@ public class Manager : MonoBehaviour
     {
         if (p1Turn)
         {
-            boards[0].GetComponent<Board>().HighlightSquare(x,y,colour);
+            boards[0].HighlightSquare(x,y,colour);
         }
         else
         {
-            boards[1].GetComponent<Board>().HighlightSquare(x,y,colour);
+            boards[1].HighlightSquare(x,y,colour);
         }
     }
 
     public void DeHighlight()
     {
-        boards[0].GetComponent<Board>().DeHighlightAll();
-        boards[1].GetComponent<Board>().DeHighlightAll();
+        boards[0].DeHighlightAll();
+        boards[1].DeHighlightAll();
     }
 
     public void PlaceShip(int x, int y, int size, bool horizontal, GameObject ship) //Calls board to place ship at coordinates.
     {
         if (p1Turn) 
         {
-            boards[0].GetComponent<Board>().PlaceShip(x,y,size,horizontal);
+            boards[0].PlaceShip(x,y,size,horizontal);
             if(horizontal)
             {
                 ship.transform.rotation = Quaternion.Euler(0,0,0);
-                ship.transform.position = boards[0].GetComponent<Board>().BoardArray[x-1][y-1].transform.position + new Vector3((size + (size-2)*0.5f)/2,0.5f,0);
+                ship.transform.position = boards[0].BoardArray[x-1][y-1].transform.position + new Vector3((size + (size-2)*0.5f)/2,0.5f,0);
             }
             else
             {
                 ship.transform.rotation = Quaternion.Euler(0,90,0);
-                ship.transform.position = boards[0].GetComponent<Board>().BoardArray[x-1][y-1].transform.position + new Vector3(0,0.5f,(size + (size-2)*0.5f)/2);
+                ship.transform.position = boards[0].BoardArray[x-1][y-1].transform.position + new Vector3(0,0.5f,(size + (size-2)*0.5f)/2);
             }
         }
         else 
         {
-            boards[1].GetComponent<Board>().PlaceShip(x,y,size,horizontal);
+            boards[1].PlaceShip(x,y,size,horizontal);
             if(horizontal)
             {
                 ship.transform.rotation = Quaternion.Euler(0,0,0);
-                ship.transform.position = boards[1].GetComponent<Board>().BoardArray[x-1][y-1].transform.position + new Vector3((size + (size-2)*0.5f)/2,0.5f,0);
+                ship.transform.position = boards[1].BoardArray[x-1][y-1].transform.position + new Vector3((size + (size-2)*0.5f)/2,0.5f,0);
             }
             else
             {
                 ship.transform.rotation = Quaternion.Euler(0,90,0);
-                ship.transform.position = boards[1].GetComponent<Board>().BoardArray[x-1][y-1].transform.position + new Vector3(0,0.5f,(size + (size-2)*0.5f)/2);
+                ship.transform.position = boards[1].BoardArray[x-1][y-1].transform.position + new Vector3(0,0.5f,(size + (size-2)*0.5f)/2);
             }
         }
         shipsPlaced += 1;

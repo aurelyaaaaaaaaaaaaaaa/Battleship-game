@@ -6,17 +6,16 @@ public class Board : MonoBehaviour
 {
     public Camera mainCam;
     public GameObject tile;
-    Tile tileScript;
     public List<List<GameObject>> BoardArray = new List<List<GameObject>>();
     public bool hidden = true;
     public Transform b;
     public List<GameObject> ships;
+    List<GameObject> currentShips;
     public int size;
-    public bool isP1;
+    public bool isP1 = false;
     void Start()
     {
         CreateBoard();
-        SpawnShips();
     }
     void CreateBoard()
     {
@@ -25,7 +24,7 @@ public class Board : MonoBehaviour
             BoardArray.Add(new List<GameObject>());
             for (int y = 1; y <= size; y++)
             {
-                GameObject i = GameObject.Instantiate(tile,(new Vector3((-15 + x * 1.5f), 0, (-15 + y * 1.5f)) + transform.position),Quaternion.identity,b);
+                GameObject i = Instantiate(tile,(new Vector3((-15 + x * 1.5f), 0, (-15 + y * 1.5f)) + transform.position),Quaternion.identity,b);
                 i.GetComponent<Tile>().y = y;
                 i.GetComponent<Tile>().x = x;
                 BoardArray[x-1].Add(i);
@@ -36,13 +35,33 @@ public class Board : MonoBehaviour
 
     public void SpawnShips()
     {
-        for(int i=0; i<ships.Count; i++)
+        if (currentShips != null)
         {
-            GameObject.Instantiate(ships[i], new Vector3(-20,0.5f,10-i), Quaternion.identity);
+            foreach (GameObject ship in currentShips)
+            {
+                Destroy(ship);
+            }
         }
+
+        foreach (List<GameObject> list in BoardArray)
+        {
+            foreach (GameObject tile in list)
+            {
+                tile.GetComponent<Tile>().occupied = false;
+            }
+        }
+
+        DeHighlightAll();
+        Debug.Log(ships.Count);
+        for (int i=0; i < ships.Count; i++)
+        {
+            Debug.Log(i);
+            currentShips.Add(Instantiate(ships[i], new Vector3(-20, 0.5f, 6 - 2 * i), Quaternion.identity));
+        }
+        Debug.Log("ok");
     }
 
-    void FireProjectile()
+    void Fire()
     {
 
     }
@@ -56,11 +75,6 @@ public class Board : MonoBehaviour
                 y.GetComponent<Tile>().Switch();
             }
         }
-    }
-
-    void ResetSquares()
-    {
-
     }
 
     public void PlaceShip(int x, int y, int size, bool horizontal)
