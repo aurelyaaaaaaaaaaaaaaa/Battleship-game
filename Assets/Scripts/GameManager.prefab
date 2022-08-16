@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &230415266032096222
+--- !u!1 &8846200612056920300
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,45 +8,44 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1164321025292746757}
-  - component: {fileID: -2446660570048511538}
+  - component: {fileID: 8846200612056920298}
+  - component: {fileID: 8846200612056920299}
   m_Layer: 0
-  m_Name: Board
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1164321025292746757
+--- !u!4 &8846200612056920298
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 230415266032096222}
+  m_GameObject: {fileID: 8846200612056920300}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.238516, y: -1.3391304, z: -2.1703434}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-2446660570048511538
+--- !u!114 &8846200612056920299
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 230415266032096222}
+  m_GameObject: {fileID: 8846200612056920300}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b4f27f632d92f4b96f3881f294bbfb, type: 3}
+  m_Script: {fileID: 11500000, guid: 6bdce57236d0d8d4eb675ec298e8de1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCam: {fileID: 1604017895276157099, guid: 1c8f8b81a3e539144a9227a8ceca4917, type: 3}
-  tile: {fileID: 4890416156220534685, guid: 1c1a7a023c3232649ba0b1d41e768155, type: 3}
-  hidden: 1
-  b: {fileID: 1164321025292746757}
-  size: 10
-  tttt: {fileID: 8846200612056920300, guid: 3c50be6791935204caedf0ce2fa13ac4, type: 3}
+  board: {fileID: 230415266032096222, guid: d2961e624a22ffb4695d4f942a8a70d1, type: 3}
+  p1Turn: 1
+  ScreenHider: {fileID: 0}
+  animator: {fileID: 0}
+  mainCam: {fileID: 0}

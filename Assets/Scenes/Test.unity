@@ -403,6 +403,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   board: {fileID: 230415266032096222, guid: d2961e624a22ffb4695d4f942a8a70d1, type: 3}
+  test: {fileID: -2446660570048511538, guid: d2961e624a22ffb4695d4f942a8a70d1, type: 3}
   p1Turn: 1
   ScreenHider: {fileID: 997179770}
   animator: {fileID: 64326133}

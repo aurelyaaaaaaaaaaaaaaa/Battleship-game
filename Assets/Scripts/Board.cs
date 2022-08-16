@@ -28,6 +28,7 @@ public class Board : MonoBehaviour
                 BoardArray[x-1].Add(i);
             }
         }
+        GameObject.Find("GameManager").GetComponent<Manager>().P1Go();
     }
 
     public void SpawnShips()
@@ -42,8 +43,6 @@ public class Board : MonoBehaviour
 
     public void Switch()
     {
-        //idk how fix, this executes before the board is generated leading to an error.
-        Debug.Log("switch");
         foreach (List<GameObject> x in BoardArray)
         {
             foreach (GameObject y in x)

@@ -44,6 +44,12 @@ public class PlayerController : MonoBehaviour
         {
             StartCoroutine(manager.GetComponent<Manager>().MoveCam(new Vector3((float)18.2, 17, 0)));
         }
+
+        if (Input.GetButtonDown("rotateship") && shipSelected)
+        {
+            horizontal = !horizontal;
+            manager.GetComponent<Manager>().DeHighlight();
+        }
     }
 
     void HoverTile(int x, int y, GameObject tile) //Checks what tiles to highlight and color
@@ -57,9 +63,9 @@ public class PlayerController : MonoBehaviour
         {
             if (horizontal)
             {
-                if (x + shipSize >= 10) //Highlight red if ship placement is out of bounds.
+                if (x + shipSize-2 >= 10) //Highlight red if ship placement is out of bounds.
                 {
-                    for (int i = x; i < 10; i++)
+                    for (int i = x; i <= 10; i++)
                     {
                         manager.GetComponent<Manager>().HighlightAtPosition(i, y, Color.red);
                     }
@@ -82,9 +88,9 @@ public class PlayerController : MonoBehaviour
 
             else
             {
-                if (y + shipSize >= 10)
+                if (y + shipSize-2 >= 10)
                 {
-                    for (int i = y; i < 10; i++)
+                    for (int i = y; i <= 10; i++)
                     {
                         manager.GetComponent<Manager>().HighlightAtPosition(x, i, Color.red);
                     }
@@ -133,22 +139,28 @@ public class PlayerController : MonoBehaviour
         {
             if (CanPlace(x, y))
             {
-                manager.GetComponent<Manager>().PlaceShip(x, y, shipSize, horizontal);
+                manager.GetComponent<Manager>().PlaceShip(x, y, shipSize, horizontal, currentHeldShip);
                 currentHeldShip.GetComponent<Ship>().placed = true;
+                shipSelected = false;
+                currentHeldShip = null;
             }
         }
     }
 
     bool CanPlace(int x, int y) //Check if requested placement is valid.
     {
-        if (horizontal && x + shipSize >= 10)
+        if (!currentHeldShip.GetComponent<Ship>().placed)
         {
-            return false;
+            if (horizontal && x + shipSize-2 >= 10)
+            {
+                return false;
+            }
+            else if (!horizontal && y + shipSize-2 >= 10)
+            {
+                return false;
+            }
+            else return true;
         }
-        else if (!horizontal && y + shipSize >= 10)
-        {
-            return false;
-        }
-        else return true;
+        else return false;
     }
 }

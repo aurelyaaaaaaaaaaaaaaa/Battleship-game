@@ -6,12 +6,14 @@ using UnityEngine.UI;
 public class Manager : MonoBehaviour
 {
     public GameObject board;
+    public Board test;
     private List<GameObject> boards = new List<GameObject>();
     public bool p1Turn = true;
     public GameObject ScreenHider;
     public Animator animator;
     public Camera mainCam;
     Vector3 finalCamPos = new Vector3((float)1.75, 17, 0);
+    bool gogogo=false;
 
     //Everything goes through the manager first for all player input.
     //The board objects don't need to know if the game is in setup or firing mode.
@@ -23,6 +25,12 @@ public class Manager : MonoBehaviour
     private void Start() //At scene creation the boards are set.
     {
         InstantiateBoards();
+    }
+
+    public void P1Go() //essential function do not delete, it is needed i dont know why
+    {
+        if(!gogogo)
+        {boards[0].GetComponent<Board>().Switch();gogogo=true;}      
     }
 
     void InstantiateBoards() //Instantiate 2 boards side by side.
@@ -70,9 +78,13 @@ public class Manager : MonoBehaviour
         boards[1].GetComponent<Board>().DeHighlightAll();
     }
 
-    public void PlaceShip(int x, int y, int size, bool horizontal) //Calls board to place ship at coordinates.
+    public void PlaceShip(int x, int y, int size, bool horizontal, GameObject ship) //Calls board to place ship at coordinates.
     {
-        if (p1Turn) {boards[0].GetComponent<Board>().PlaceShip(x,y,size,horizontal);}
+        if (p1Turn) 
+        {
+            boards[0].GetComponent<Board>().PlaceShip(x,y,size,horizontal);
+            ship.transform.position = boards[0].GetComponent<Board>().BoardArray[x][y].transform.position;
+        }
         else {boards[1].GetComponent<Board>().PlaceShip(x,y,size,horizontal);}
     }
 
