@@ -30,7 +30,7 @@ public class ButtonController : MonoBehaviour
         {
             manager.p1Turn = true;
             manager.SwitchState();
-            StartCoroutine(manager.MoveCam(new Vector3(-15, 17, 0)));
+            StartCoroutine(manager.MoveCam(new Vector3(1.79f, 17, 0)));
         }
     }
 }

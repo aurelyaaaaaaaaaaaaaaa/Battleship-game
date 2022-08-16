@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Manager : MonoBehaviour
 {
@@ -58,11 +59,6 @@ public class Manager : MonoBehaviour
         }
     }
 
-    public void CheckSpace(int x, int y, int size, bool horizontal) //Checks if ship can be placed at position.
-    {
-
-    }
-
     public void HighlightAtPosition(int x, int y, Color colour) //Calls board to highlight tiles at coordinates. Highlight multiple squares when holding a ship to place.
     {
         if (p1Turn)
@@ -116,12 +112,27 @@ public class Manager : MonoBehaviour
 
     public void Shoot(int x, int y) //Fire at board position. Check is done in Player class so no need to do it here.
     {
+        if (p1Turn)
+        {
+            boards[1].Fire(x, y);
+        }
+        else
+        {
+            boards[0].Fire(x, y);
+        }
         CheckWin();
     }
 
     void CheckWin() //Asks the board to return the number of 'alive' tiles. If its zero then that side loses. Move to win scene.
     {
-
+        if (boards[0].liveShips == 0)
+        {
+            SceneManager.LoadScene(3);
+        }
+        else if (boards[1].liveShips == 0)
+        {
+            SceneManager.LoadScene(2);
+        }
     }
 
     public IEnumerator MoveCam(Vector3 destination) // Moves camera

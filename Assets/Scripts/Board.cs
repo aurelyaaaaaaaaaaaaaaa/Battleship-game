@@ -12,6 +12,7 @@ public class Board : MonoBehaviour
     public List<GameObject> ships;
     List<GameObject> currentShips = new List<GameObject>();
     public int size;
+    public int liveShips;
     public bool isP1 = false;
     void Start()
     {
@@ -56,12 +57,16 @@ public class Board : MonoBehaviour
         {
             if (isP1)currentShips.Add(Instantiate(ships[i], new Vector3(-20, 0.5f, 6 - 2 * i), Quaternion.identity));
             else currentShips.Add(Instantiate(ships[i], new Vector3(25, 0.5f, 6 - 2 * i), Quaternion.identity));
+            liveShips = 17;
         }
     }
 
-    void Fire()
+    public void Fire(int x, int y)
     {
-
+        if (BoardArray[x][y].GetComponent<Tile>().Targeted())
+        {
+            liveShips -= 1;
+        }
     }
 
     public void Switch()
@@ -72,7 +77,7 @@ public class Board : MonoBehaviour
             {
                 y.GetComponent<Tile>().Switch();
             }
-        }
+        }  
     }
 
     public void PlaceShip(int x, int y, int size, bool horizontal)
@@ -92,7 +97,7 @@ public class Board : MonoBehaviour
 
     public void HighlightSquare(int x, int y, Color colour)
     {
-        BoardArray[x-1][y-1].GetComponent<Tile>().Hightlight(colour);
+        BoardArray[x-1][y-1].GetComponent<Tile>().Highlight(colour);
     }
 
     public void DeHighlightAll()
@@ -103,7 +108,7 @@ public class Board : MonoBehaviour
             {
                 if(!y.GetComponent<Tile>().Occupied() && !y.GetComponent<Tile>().Shot())
                 {
-                    y.GetComponent<Tile>().Hightlight(Color.white);
+                    y.GetComponent<Tile>().Highlight(Color.white);
                 }
             }
         }

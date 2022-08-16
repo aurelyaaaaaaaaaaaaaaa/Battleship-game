@@ -29,4 +29,9 @@ public class Ship : MonoBehaviour
     {
         render.material.color = colour;
     }
+
+    public void Hide()
+    {
+        render.enabled = !render.enabled;
+    }
 }

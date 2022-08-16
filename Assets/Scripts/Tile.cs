@@ -21,13 +21,31 @@ public class Tile : MonoBehaviour
         
     }
 
+    public bool Targeted()
+    {
+        shot = true;
+        if (occupied)
+        {
+            Highlight(Color.magenta);
+            return true;
+        }
+        else
+        {
+            Highlight(Color.red);
+            return false;
+        }
+    }
+
     public bool Friendly() { return friendly; }
 
     public bool Shot() { return shot; }
 
     public bool Occupied() { return occupied; }
 
-    public void Hightlight(Color colour) { render.material.color = colour; }
+    public void Highlight(Color colour) 
+    { 
+        if (!shot) render.material.color = colour; 
+    }
 
     public void Place() {occupied = !occupied;}
 
