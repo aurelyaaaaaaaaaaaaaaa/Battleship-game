@@ -14,6 +14,7 @@ public class Manager : MonoBehaviour
     public Camera mainCam;
     Vector3 finalCamPos = new Vector3((float)1.75, 17, 0);
     bool gogogo=false;
+    public int shipsPlaced;
 
     //Everything goes through the manager first for all player input.
     //The board objects don't need to know if the game is in setup or firing mode.
@@ -83,9 +84,32 @@ public class Manager : MonoBehaviour
         if (p1Turn) 
         {
             boards[0].GetComponent<Board>().PlaceShip(x,y,size,horizontal);
-            ship.transform.position = boards[0].GetComponent<Board>().BoardArray[x][y].transform.position;
+            if(horizontal)
+            {
+                ship.transform.rotation = Quaternion.Euler(0,0,0);
+                ship.transform.position = boards[0].GetComponent<Board>().BoardArray[x-1][y-1].transform.position + new Vector3((size + (size-2)*0.5f)/2,0.5f,0);
+            }
+            else
+            {
+                ship.transform.rotation = Quaternion.Euler(0,90,0);
+                ship.transform.position = boards[0].GetComponent<Board>().BoardArray[x-1][y-1].transform.position + new Vector3(0,0.5f,(size + (size-2)*0.5f)/2);
+            }
         }
-        else {boards[1].GetComponent<Board>().PlaceShip(x,y,size,horizontal);}
+        else 
+        {
+            boards[1].GetComponent<Board>().PlaceShip(x,y,size,horizontal);
+            if(horizontal)
+            {
+                ship.transform.rotation = Quaternion.Euler(0,0,0);
+                ship.transform.position = boards[1].GetComponent<Board>().BoardArray[x-1][y-1].transform.position + new Vector3((size + (size-2)*0.5f)/2,0.5f,0);
+            }
+            else
+            {
+                ship.transform.rotation = Quaternion.Euler(0,90,0);
+                ship.transform.position = boards[1].GetComponent<Board>().BoardArray[x-1][y-1].transform.position + new Vector3(0,0.5f,(size + (size-2)*0.5f)/2);
+            }
+        }
+        shipsPlaced += 1;
     }
 
     public void Shoot(int x, int y) //Fire at board position. Check is done in Player class so no need to do it here.

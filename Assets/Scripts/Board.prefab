@@ -48,5 +48,10 @@ MonoBehaviour:
   tile: {fileID: 4890416156220534685, guid: 1c1a7a023c3232649ba0b1d41e768155, type: 3}
   hidden: 1
   b: {fileID: 1164321025292746757}
+  ships:
+  - {fileID: 3380054165420640969, guid: 405f0da9438ce894baa91ce56defd632, type: 3}
+  - {fileID: 3380054165420640969, guid: 6755f33136952974692664a0dbe38a19, type: 3}
+  - {fileID: 3380054165420640969, guid: 101c9079ec7cf1f4aab6e35fdfa0c12d, type: 3}
+  - {fileID: 3380054165420640969, guid: 101c9079ec7cf1f4aab6e35fdfa0c12d, type: 3}
+  - {fileID: 3380054165420640969, guid: 87761d9e8e885cc4396bc6f185a6557a, type: 3}
   size: 10
-  tttt: {fileID: 8846200612056920300, guid: 3c50be6791935204caedf0ce2fa13ac4, type: 3}

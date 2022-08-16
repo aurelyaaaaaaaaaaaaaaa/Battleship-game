@@ -39,8 +39,8 @@ public class PlayerController : MonoBehaviour
                 manager.GetComponent<Manager>().DeHighlight();
             }            
         }
-
-        if (Input.GetButtonDown("Jump"))
+        //change to button script
+        if (Input.GetButtonDown("Jump") && manager.GetComponent<Manager>().shipsPlaced == 5)
         {
             StartCoroutine(manager.GetComponent<Manager>().MoveCam(new Vector3((float)18.2, 17, 0)));
         }
@@ -134,7 +134,6 @@ public class PlayerController : MonoBehaviour
         {
             manager.GetComponent<Manager>().Shoot(x, y);
         }
-        Debug.Log(tile.GetComponent<Tile>().Friendly());
         if (tile.GetComponent<Tile>().Friendly() && setup && shipSelected)
         {
             if (CanPlace(x, y))

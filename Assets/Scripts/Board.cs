@@ -10,10 +10,13 @@ public class Board : MonoBehaviour
     public List<List<GameObject>> BoardArray = new List<List<GameObject>>();
     public bool hidden = true;
     public Transform b;
+    public List<GameObject> ships;
     public int size;
+    public bool isP1;
     void Start()
     {
         CreateBoard();
+        SpawnShips();
     }
     void CreateBoard()
     {
@@ -33,7 +36,10 @@ public class Board : MonoBehaviour
 
     public void SpawnShips()
     {
-        
+        for(int i=0; i<ships.Count; i++)
+        {
+            GameObject.Instantiate(ships[i], new Vector3(-20,0.5f,10-i), Quaternion.identity);
+        }
     }
 
     void FireProjectile()
@@ -59,7 +65,6 @@ public class Board : MonoBehaviour
 
     public void PlaceShip(int x, int y, int size, bool horizontal)
     {
-        Debug.Log(x + " " + y);
         for(int i = 0; i<size; i++)
         {
             if(horizontal)
