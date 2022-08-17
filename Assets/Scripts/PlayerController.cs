@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -36,7 +34,7 @@ public class PlayerController : MonoBehaviour
             }
             else //Unhilights all tiles
             {
-                manager.DeHighlight();
+                manager.DeHighlight(setup);
             }            
         }
         //change to button script
@@ -44,7 +42,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("rotateship") && shipSelected)
         {
             horizontal = !horizontal;
-            manager.DeHighlight();
+            manager.DeHighlight(setup);
         }
     }
 
@@ -52,7 +50,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!tile.GetComponent<Tile>().Friendly() && !tile.GetComponent<Tile>().Shot() && !setup)
         {
-            manager.HighlightAtPosition(x, y, Color.red);
+            manager.HighlightAtPosition(x, y, Color.red, setup);
         }
 
         if (tile.GetComponent<Tile>().Friendly() && !tile.GetComponent<Tile>().Occupied() && setup && shipSelected)
@@ -63,14 +61,14 @@ public class PlayerController : MonoBehaviour
                 {
                     for (int i = x; i <= 10; i++)
                     {
-                        manager.HighlightAtPosition(i, y, Color.red);
+                        manager.HighlightAtPosition(i, y, Color.red, setup);
                     }
                 }
                 else
                 {
                     for (int i = x; i < x + shipSize; i++) //Highlight tiles that already have ships red, else green
                     {
-                        manager.HighlightAtPosition(i, y, Color.green);
+                        manager.HighlightAtPosition(i, y, Color.green, setup);
                     }
                 }
             }
@@ -81,7 +79,7 @@ public class PlayerController : MonoBehaviour
                 {
                     for (int i = y; i <= 10; i++)
                     {
-                        manager.HighlightAtPosition(x, i, Color.red);
+                        manager.HighlightAtPosition(x, i, Color.red,setup);
                     }
                 }
                 else
@@ -90,11 +88,11 @@ public class PlayerController : MonoBehaviour
                     {
                         if (!tile.GetComponent<Tile>().Occupied())
                         {
-                            manager.HighlightAtPosition(x, i, Color.green);
+                            manager.HighlightAtPosition(x, i, Color.green,setup);
                         }
                         else
                         {
-                            manager.HighlightAtPosition(x, i, Color.red);
+                            manager.HighlightAtPosition(x, i, Color.red,setup);
                         }
                     }
                 }
@@ -190,5 +188,11 @@ public class PlayerController : MonoBehaviour
             }
         }
         else return false;
+    }
+
+    public void FinishSetup()
+    {
+        setup = false;
+        manager.boards[0].GetComponent<Board>().ToggleShips();
     }
 }

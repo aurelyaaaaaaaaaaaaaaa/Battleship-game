@@ -14,6 +14,7 @@ public class Board : MonoBehaviour
     public int size;
     public int liveShips;
     public bool isP1 = false;
+    public GameObject pc;
     void Start()
     {
         CreateBoard();
@@ -34,7 +35,7 @@ public class Board : MonoBehaviour
         GameObject.Find("GameManager").GetComponent<Manager>().P1Go();
     }
 
-    public void SpawnShips()
+    public void SpawnShips(bool setup)
     {
         if (currentShips != null)
         {
@@ -52,7 +53,7 @@ public class Board : MonoBehaviour
             }
         }
 
-        DeHighlightAll();
+        DeHighlightAll(setup);
         for (int i=0; i < ships.Count; i++)
         {
             if (isP1)currentShips.Add(Instantiate(ships[i], new Vector3(-20, 0.5f, 6 - 2 * i), Quaternion.identity));
@@ -63,13 +64,13 @@ public class Board : MonoBehaviour
 
     public void Fire(int x, int y)
     {
-        if (BoardArray[x][y].GetComponent<Tile>().Targeted())
+        if (BoardArray[x-1][y-1].GetComponent<Tile>().Targeted())
         {
             liveShips -= 1;
         }
     }
 
-    public void Switch()
+    public void Switch(bool setup)
     {
         foreach (List<GameObject> x in BoardArray)
         {
@@ -78,6 +79,19 @@ public class Board : MonoBehaviour
                 y.GetComponent<Tile>().Switch();
             }
         }  
+        if(!setup)
+        {
+            ToggleShips();
+            DeHighlightAll(setup);
+        }
+    }
+
+    public void ToggleShips()
+    {
+        foreach(GameObject y in currentShips)
+        {
+            y.SetActive(!y.activeSelf);
+        }
     }
 
     public void PlaceShip(int x, int y, int size, bool horizontal)
@@ -100,13 +114,13 @@ public class Board : MonoBehaviour
         BoardArray[x-1][y-1].GetComponent<Tile>().Highlight(colour);
     }
 
-    public void DeHighlightAll()
+    public void DeHighlightAll(bool setup)
     {
         foreach(List<GameObject> x in BoardArray)
         {
             foreach(GameObject y in x)
             {
-                if(!y.GetComponent<Tile>().Occupied() && !y.GetComponent<Tile>().Shot())
+                if(!y.GetComponent<Tile>().Friendly()||setup)
                 {
                     y.GetComponent<Tile>().Highlight(Color.white);
                 }

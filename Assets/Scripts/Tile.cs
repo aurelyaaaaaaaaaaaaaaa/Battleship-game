@@ -16,22 +16,18 @@ public class Tile : MonoBehaviour
         render = GetComponent<MeshRenderer>();
     }
 
-    void Update()
-    {
-        
-    }
-
     public bool Targeted()
     {
-        shot = true;
         if (occupied)
         {
             Highlight(Color.magenta);
+            shot = true;
             return true;
         }
         else
         {
             Highlight(Color.red);
+            shot = true;
             return false;
         }
     }
@@ -49,5 +45,13 @@ public class Tile : MonoBehaviour
 
     public void Place() {occupied = !occupied;}
 
-    public void Switch() {friendly = !friendly;}
+    public void Switch() {friendly = !friendly;ReHighlight();}
+
+    void ReHighlight()
+    {
+        if (Occupied()&&!shot)
+        {
+            render.material.color = Color.green;
+        }
+    }
 }

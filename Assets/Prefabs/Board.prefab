@@ -55,4 +55,6 @@ MonoBehaviour:
   - {fileID: 3380054165420640969, guid: 101c9079ec7cf1f4aab6e35fdfa0c12d, type: 3}
   - {fileID: 3380054165420640969, guid: 87761d9e8e885cc4396bc6f185a6557a, type: 3}
   size: 10
+  liveShips: 0
   isP1: 0
+  pc: {fileID: 1604017895276157094, guid: 1c8f8b81a3e539144a9227a8ceca4917, type: 3}

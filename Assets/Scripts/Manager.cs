@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class Manager : MonoBehaviour
@@ -15,6 +14,8 @@ public class Manager : MonoBehaviour
     Vector3 finalCamPos = new Vector3((float)1.75, 17, 0);
     bool gogogo=false;
     public int shipsPlaced;
+    public PlayerController pc;
+    public GameObject nextplayer;
 
     //Everything goes through the manager first for all player input.
     //The board objects don't need to know if the game is in setup or firing mode.
@@ -32,7 +33,7 @@ public class Manager : MonoBehaviour
     public void P1Go() //essential function do not delete, it is needed i dont know why
     {
         if(!gogogo)
-        {boards[0].Switch();gogogo=true;}      
+        {boards[0].Switch(pc.setup);gogogo=true;} 
     }
 
     void InstantiateBoards() //Instantiate 2 boards side by side.
@@ -47,34 +48,51 @@ public class Manager : MonoBehaviour
 
     public void SetUpShips(int p) //Spawn ships for set up on board.
     {
-        boards[p].SpawnShips();
+        boards[p].SpawnShips(pc.setup);
         shipsPlaced=0;
     }
 
     public void SwitchState() //Switches boards from visible to none visible depending on who's turn it is.
     {
+        animator.SetTrigger("fade");
         foreach (Board x in boards)
         {
-            x.Switch();
+            x.Switch(pc.setup);
         }
+        nextplayer.SetActive(true);
+        p1Turn = !p1Turn;
     }
 
-    public void HighlightAtPosition(int x, int y, Color colour) //Calls board to highlight tiles at coordinates. Highlight multiple squares when holding a ship to place.
+    public void HighlightAtPosition(int x, int y, Color colour, bool setup) //Calls board to highlight tiles at coordinates. Highlight multiple squares when holding a ship to place.
     {
-        if (p1Turn)
+        if (setup)
         {
-            boards[0].HighlightSquare(x,y,colour);
+            if (p1Turn)
+            {
+                boards[0].HighlightSquare(x,y,colour);
+            }
+            else
+            {
+                boards[1].HighlightSquare(x,y,colour);
+            }
         }
         else
         {
-            boards[1].HighlightSquare(x,y,colour);
+            if (!p1Turn)
+            {
+                boards[0].HighlightSquare(x,y,colour);
+            }
+            else
+            {
+                boards[1].HighlightSquare(x,y,colour);
+            }
         }
     }
 
-    public void DeHighlight()
+    public void DeHighlight(bool setup)
     {
-        boards[0].DeHighlightAll();
-        boards[1].DeHighlightAll();
+        boards[0].DeHighlightAll(setup);
+        boards[1].DeHighlightAll(setup);
     }
 
     public void PlaceShip(int x, int y, int size, bool horizontal, GameObject ship) //Calls board to place ship at coordinates.
@@ -121,6 +139,7 @@ public class Manager : MonoBehaviour
             boards[0].Fire(x, y);
         }
         CheckWin();
+        SwitchState();
     }
 
     void CheckWin() //Asks the board to return the number of 'alive' tiles. If its zero then that side loses. Move to win scene.
@@ -137,12 +156,16 @@ public class Manager : MonoBehaviour
 
     public IEnumerator MoveCam(Vector3 destination) // Moves camera
     {
-        animator.SetTrigger("fade");
         while (mainCam.transform.position != destination)
         {
             mainCam.transform.position = Vector3.MoveTowards(mainCam.transform.position, destination, (float) 0.2);
             yield return new WaitForEndOfFrame();
         }
+    }
+
+    public void animate()
+    {
         animator.SetTrigger("fader");
+        nextplayer.SetActive(false);
     }
 }
