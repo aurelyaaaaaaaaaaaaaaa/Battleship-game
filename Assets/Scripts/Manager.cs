@@ -16,21 +16,20 @@ public class Manager : MonoBehaviour
     public int shipsPlaced;
     public PlayerController pc;
     public GameObject nextplayer;
+    public GameObject hs;
+    public GameObject blocker;
 
     //Everything goes through the manager first for all player input.
     //The board objects don't need to know if the game is in setup or firing mode.
     //This is because when the player clicks it first goes to this class that does know and this will act accordingly.
     //E.g. Player class clicks Tile > Tile returns coordinates > Player gives it to Manager class > Manager gives appropriate instruction to Board class based on above variables.
-
-    //Will add functions for this as we go.
-
-    private void Start() //At scene creation the boards are set.
+    private void Start() //At scene creation the boards are set and the ships are set up
     {
         InstantiateBoards();
         SetUpShips(0);
     }
 
-    public void P1Go() //essential function do not delete, it is needed i dont know why
+    public void P1Go() //Makes sure that the correct player is selected
     {
         if(!gogogo)
         {boards[0].Switch(pc.setup);gogogo=true;} 
@@ -54,7 +53,8 @@ public class Manager : MonoBehaviour
 
     public void SwitchState() //Switches boards from visible to none visible depending on who's turn it is.
     {
-        animator.SetTrigger("fade");
+        hs.SetActive(true);
+        blocker.SetActive(true);
         foreach (Board x in boards)
         {
             x.Switch(pc.setup);
@@ -89,7 +89,7 @@ public class Manager : MonoBehaviour
         }
     }
 
-    public void DeHighlight(bool setup)
+    public void DeHighlight(bool setup) //Unhiglights all tiles
     {
         boards[0].DeHighlightAll(setup);
         boards[1].DeHighlightAll(setup);
@@ -154,18 +154,15 @@ public class Manager : MonoBehaviour
         }
     }
 
-    public IEnumerator MoveCam(Vector3 destination) // Moves camera
+    public void MoveCam(Vector3 destination) // Moves camera
     {
-        while (mainCam.transform.position != destination)
-        {
-            mainCam.transform.position = Vector3.MoveTowards(mainCam.transform.position, destination, (float) 0.2);
-            yield return new WaitForEndOfFrame();
-        }
+        mainCam.transform.position = destination;
     }
 
-    public void animate()
+    public void animate() //Transitions between player's turns
     {
-        animator.SetTrigger("fader");
+        hs.SetActive(false);
+        blocker.SetActive(false);
         nextplayer.SetActive(false);
     }
 }

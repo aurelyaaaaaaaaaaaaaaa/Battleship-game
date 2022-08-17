@@ -10,13 +10,13 @@ public class PlayerController : MonoBehaviour
     GameObject currentHeldShip;
     public Manager manager;
 
-    void Update()
+    void Update() //checks if your are hovering over a tile
     {
         Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
 
         if (Physics.Raycast(ray, out RaycastHit hitInfo))
         {
-            if (hitInfo.collider.gameObject.GetComponent<Tile>() != null) //Checks if hovering tile
+            if (hitInfo.collider.gameObject.GetComponent<Tile>() != null)
             {
                 int x = hitInfo.collider.gameObject.GetComponent<Tile>().x;
                 int y = hitInfo.collider.gameObject.GetComponent<Tile>().y;
@@ -37,9 +37,7 @@ public class PlayerController : MonoBehaviour
                 manager.DeHighlight(setup);
             }            
         }
-        //change to button script
-
-        if (Input.GetButtonDown("rotateship") && shipSelected)
+        if (Input.GetButtonDown("rotateship") && shipSelected) // rotates the ship
         {
             horizontal = !horizontal;
             manager.DeHighlight(setup);
@@ -66,16 +64,23 @@ public class PlayerController : MonoBehaviour
                 }
                 else
                 {
-                    for (int i = x; i < x + shipSize; i++) //Highlight tiles that already have ships red, else green
+                    for (int i = x; i < x + shipSize; i++)
                     {
-                        manager.HighlightAtPosition(i, y, Color.green, setup);
+                        if (!tile.GetComponent<Tile>().Occupied()) //Highlight tiles that already have ships red, else green
+                        {
+                            manager.HighlightAtPosition(i, y, Color.green,setup);
+                        }
+                        else
+                        {
+                            manager.HighlightAtPosition(i, y, Color.red,setup);
+                        }
                     }
                 }
             }
 
             else
             {
-                if (y + shipSize-2 >= 10)
+                if (y + shipSize-2 >= 10) //Highlight red if ship placement is out of bounds.
                 {
                     for (int i = y; i <= 10; i++)
                     {
@@ -86,7 +91,7 @@ public class PlayerController : MonoBehaviour
                 {
                     for (int i = y; i < y + shipSize; i++)
                     {
-                        if (!tile.GetComponent<Tile>().Occupied())
+                        if (!tile.GetComponent<Tile>().Occupied()) //Highlight tiles that already have ships red, else green
                         {
                             manager.HighlightAtPosition(x, i, Color.green,setup);
                         }
@@ -115,7 +120,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void ClickOptions(int x, int y, GameObject tile) //Does something on click based on stuff
+    void ClickOptions(int x, int y, GameObject tile) //Executes functions for clicking on tiles
     {
         if (!tile.GetComponent<Tile>().Friendly() && !tile.GetComponent<Tile>().Shot() && !setup)
         {
@@ -190,7 +195,7 @@ public class PlayerController : MonoBehaviour
         else return false;
     }
 
-    public void FinishSetup()
+    public void FinishSetup() //Called after setup to remove button etc.
     {
         setup = false;
         manager.boards[0].GetComponent<Board>().ToggleShips();

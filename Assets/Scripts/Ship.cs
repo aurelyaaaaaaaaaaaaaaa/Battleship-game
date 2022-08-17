@@ -9,29 +9,14 @@ public class Ship : MonoBehaviour
     MeshRenderer render;
     Color tempcolour;
 
-    private void Start()
+    private void Start() 
     {
-        render = GetComponent<MeshRenderer>();
-        transform.localScale = new Vector3((size + (size-1)*0.5f), 1, 1);
+        render = GetComponent<MeshRenderer>(); // gets renderer to change colour
+        transform.localScale = new Vector3((size + (size-1)*0.5f), 1, 1); // changes the size of the ship to fit with how long of a space it takes up
     }
 
-    public int returnSize()
-    {
-        return size;
-    }
-
-    public void placeOrReset() //Switches ship to placed when put down or resets it to not placed if changing placement.
-    {
-        placed = !placed;
-    }
-
-    public void Highlight(Color colour)
+    public void Highlight(Color colour) // changes the colour of the ship
     {
         render.material.color = colour;
-    }
-
-    public void Hide()
-    {
-        render.enabled = !render.enabled;
     }
 }

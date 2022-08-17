@@ -15,11 +15,11 @@ public class Board : MonoBehaviour
     public int liveShips;
     public bool isP1 = false;
     public GameObject pc;
-    void Start()
+    void Start() //creates board when instantiated
     {
         CreateBoard();
     }
-    void CreateBoard()
+    void CreateBoard() //creates all the tiles of the board
     {
         for (int x = 1; x <= size; x++)
         {
@@ -35,7 +35,7 @@ public class Board : MonoBehaviour
         GameObject.Find("GameManager").GetComponent<Manager>().P1Go();
     }
 
-    public void SpawnShips(bool setup)
+    public void SpawnShips(bool setup) // spawns all the ships
     {
         if (currentShips != null)
         {
@@ -56,13 +56,13 @@ public class Board : MonoBehaviour
         DeHighlightAll(setup);
         for (int i=0; i < ships.Count; i++)
         {
-            if (isP1)currentShips.Add(Instantiate(ships[i], new Vector3(-20, 0.5f, 6 - 2 * i), Quaternion.identity));
-            else currentShips.Add(Instantiate(ships[i], new Vector3(25, 0.5f, 6 - 2 * i), Quaternion.identity));
+            if (isP1)currentShips.Add(Instantiate(ships[i], new Vector3(-20, 0, 6 - 2 * i), Quaternion.identity));
+            else currentShips.Add(Instantiate(ships[i], new Vector3(25, 0, 6 - 2 * i), Quaternion.identity));
             liveShips = 17;
         }
     }
 
-    public void Fire(int x, int y)
+    public void Fire(int x, int y) // shoots when called by playercontroller
     {
         if (BoardArray[x-1][y-1].GetComponent<Tile>().Targeted())
         {
@@ -70,8 +70,13 @@ public class Board : MonoBehaviour
         }
     }
 
-    public void Switch(bool setup)
+    public void Switch(bool setup) // switches turn when called by playercontroller
     {
+        if(!setup)
+        {
+            if(currentShips != null) {ToggleShips();}
+            DeHighlightAll(setup);
+        }
         foreach (List<GameObject> x in BoardArray)
         {
             foreach (GameObject y in x)
@@ -79,22 +84,17 @@ public class Board : MonoBehaviour
                 y.GetComponent<Tile>().Switch();
             }
         }  
-        if(!setup)
-        {
-            ToggleShips();
-            DeHighlightAll(setup);
-        }
     }
 
-    public void ToggleShips()
+    public void ToggleShips() // destroys ship assets after setup
     {
         foreach(GameObject y in currentShips)
         {
-            y.SetActive(!y.activeSelf);
+            Destroy(y);
         }
     }
 
-    public void PlaceShip(int x, int y, int size, bool horizontal)
+    public void PlaceShip(int x, int y, int size, bool horizontal) // changes state of tiles with ships placed on them
     {
         for(int i = 0; i<size; i++)
         {
@@ -109,12 +109,12 @@ public class Board : MonoBehaviour
         }
     }
 
-    public void HighlightSquare(int x, int y, Color colour)
+    public void HighlightSquare(int x, int y, Color colour) // highlights squares
     {
         BoardArray[x-1][y-1].GetComponent<Tile>().Highlight(colour);
     }
 
-    public void DeHighlightAll(bool setup)
+    public void DeHighlightAll(bool setup) // unhilights all squares
     {
         foreach(List<GameObject> x in BoardArray)
         {
